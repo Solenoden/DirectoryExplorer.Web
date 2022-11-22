@@ -1,0 +1,7 @@
+$max-tablet-width: 768px;
+
+@mixin apply-to-desktop-and-larger() {
+    @media screen and (min-width: $max-tablet-width) {
+        @content;
+    }
+}

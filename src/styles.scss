@@ -1,0 +1,37 @@
+@use '~@angular/material' as material;
+
+* {
+    outline: none;
+}
+
+html, body {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+}
+
+.vertically-align {
+    height: fit-content;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.w-100 {
+    width: 100%
+}

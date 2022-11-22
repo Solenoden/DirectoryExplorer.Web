@@ -1,0 +1,17 @@
+@import './theme/mixins/apply-to-tablet-and-larger.mixin';
+
+#main-content-container {
+    min-height: 100%;
+    height: max-content;
+    min-width: 100%;
+    width: max-content;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+@include apply-to-tablet-and-larger {
+    #main-content-container {
+        min-width: 350px;
+    }
+}
