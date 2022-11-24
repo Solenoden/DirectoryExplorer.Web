@@ -1,3 +1,11 @@
 <div id="main-content-container">
-    <router-outlet></router-outlet>
+    <button (click)="navigateToPreviousDirectory()">..</button>
+
+    <div class="list-item-container" *ngFor="let subdirectory of subDirectories$ | async">
+        <app-directory-list-item [directory]="subdirectory"></app-directory-list-item>
+    </div>
+
+    <div class="list-item-container" *ngFor="let file of files$ | async">
+        <app-file-list-item [file]="file"></app-file-list-item>
+    </div>
 </div>

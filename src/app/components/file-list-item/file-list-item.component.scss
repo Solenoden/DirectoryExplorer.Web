@@ -1,0 +1,13 @@
+:host {
+    cursor: pointer;
+    transition: opacity 0.3s;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+span {
+    height: fit-content;
+    margin: auto 0 auto 8px;
+}

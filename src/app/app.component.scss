@@ -10,6 +10,10 @@
     margin: auto;
 }
 
+.list-item-container {
+    margin-top: 12px;
+}
+
 @include apply-to-tablet-and-larger {
     #main-content-container {
         min-width: 350px;
