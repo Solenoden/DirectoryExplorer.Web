@@ -3,7 +3,7 @@
         <app-file-details-card [file]="selectedFile$ | async"></app-file-details-card>
     </div>
 
-    <div id="directory-list" class="column">
+    <div id="directory-list" class="column" *ngIf="!isLoading">
         <button (click)="navigateToPreviousDirectory()">..</button>
 
         <div class="list-item-container" *ngFor="let subdirectory of subDirectories$ | async">
@@ -14,4 +14,6 @@
             <app-file-list-item [file]="file"></app-file-list-item>
         </div>
     </div>
+
+    <div *ngIf="isLoading">Loading directories...</div>
 </div>

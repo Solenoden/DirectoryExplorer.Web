@@ -13,21 +13,37 @@ export class DirectoryService {
     public files$: Observable<File[]> = this.rootDirectory$.pipe(map(x => x?.files))
     public selectedFile$: BehaviorSubject<File> = new BehaviorSubject<File>(null)
 
-    private previousRootDirectory: Directory
     private initialRootDirectory: Directory
 
     constructor(
         private httpService: HttpService,
         private uiService: UiService
-    ) {}
+    ) {
+        this.clearFileSelectionOnDirectoryChange()
+    }
 
-    public populateDirectories(): void {
-        // TODO: Possibly 'paginate' directory
-        this.httpService.get('/directory').subscribe(result => {
-            const directory = new Directory(result as { [key: string]: any })
+    public populateDirectories(path = ''): Observable<void> {
+        return new Observable<void>(observer => {
+            this.httpService.get(`/directory?path=${path}`).subscribe(result => {
+                const directory = new Directory(result as { [key: string]: any })
 
-            this.initialRootDirectory = directory
-            this.rootDirectory$.next(directory)
+                if (this.initialRootDirectory) {
+                    const parentDirectory = this.findDirectory(path)
+                    if (parentDirectory) {
+                        parentDirectory.directories = directory.directories
+                        parentDirectory.files = directory.files
+                        parentDirectory.isDeadEnd = directory.isDeadEnd
+                    }
+                } else {
+                    this.initialRootDirectory = directory
+                }
+
+                this.rootDirectory$.next(directory)
+                observer.next()
+                observer.complete()
+            }, error => {
+                observer.error(error)
+            })
         })
     }
 
@@ -37,24 +53,43 @@ export class DirectoryService {
         )
 
         if (newRootDirectory) {
-            this.previousRootDirectory = this.rootDirectory$.value
+            if (newRootDirectory.directories.length === 0 && !newRootDirectory.isDeadEnd) {
+                this.populateDirectories(newRootDirectory.fullPath).subscribe()
+            }
             this.rootDirectory$.next(newRootDirectory)
         }
     }
 
     public navigateToPreviousDirectory(): void {
-        if (this.previousRootDirectory) {
-            const tempPreviousRootDirectory = { ...this.previousRootDirectory }
-            this.previousRootDirectory = this.rootDirectory$.value
-            this.rootDirectory$.next(tempPreviousRootDirectory)
+        const currentDirectoryPathParts = this.rootDirectory$.value.fullPath.split('/')
+        const parentDirectoryPath = currentDirectoryPathParts.slice(0, currentDirectoryPathParts.length - 1).join('/')
 
-            if (this.uiService.screenSize$.value <= ScreenSize.Tablet) {
-                this.selectFile(null)
-            }
+        const parentDirectory = this.findDirectory(parentDirectoryPath)
+        if (parentDirectory) {
+            this.rootDirectory$.next(parentDirectory)
         }
     }
 
     public selectFile(file: File): void {
         this.selectedFile$.next(file)
+    }
+
+    private findDirectory(fullPath: string, currentDirectory = this.initialRootDirectory): Directory {
+        if (currentDirectory.fullPath === fullPath || currentDirectory.fullPath === fullPath + '/') return currentDirectory
+
+        for (const x of currentDirectory.directories) {
+            const matchingDirectory = this.findDirectory(fullPath, x)
+            if (matchingDirectory) return matchingDirectory
+        }
+
+        return null
+    }
+
+    private clearFileSelectionOnDirectoryChange(): void {
+        this.rootDirectory$.subscribe(() => {
+            if (this.uiService.screenSize$.value <= ScreenSize.Tablet) {
+                this.selectFile(null)
+            }
+        })
     }
 }
