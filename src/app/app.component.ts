@@ -10,6 +10,7 @@ import { DirectoryService } from './services/directory.service'
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+    public rootDirectory$: Observable<Directory> = this.directoryService.rootDirectory$
     public subDirectories$: Observable<Directory[]> = this.directoryService.subDirectories$
     public files$: Observable<File[]> = this.directoryService.files$
     public selectedFile$: Observable<File> = this.directoryService.selectedFile$.asObservable()

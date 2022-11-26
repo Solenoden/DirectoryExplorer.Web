@@ -4,6 +4,7 @@
     </div>
 
     <div id="directory-list" class="column" *ngIf="!isLoading">
+        <div id="directory-path">{{ (rootDirectory$ | async).fullPath }}</div>
         <button (click)="navigateToPreviousDirectory()">..</button>
 
         <div class="list-item-container" *ngFor="let subdirectory of subDirectories$ | async">

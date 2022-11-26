@@ -20,6 +20,10 @@
     margin-bottom: 15px;
 }
 
+#directory-path {
+    margin-bottom: 15px;
+}
+
 @include apply-to-tablet-and-larger() {
     #main-content-container {
         min-width: 350px;
@@ -38,5 +42,10 @@
 
     #directory-list {
         min-width: 200px;
+    }
+
+    #directory-path {
+        inline-size: 150px;
+        overflow-wrap: anywhere;
     }
 }
