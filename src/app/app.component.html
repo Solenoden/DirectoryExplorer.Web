@@ -1,11 +1,19 @@
 <div id="main-content-container">
-    <button (click)="navigateToPreviousDirectory()">..</button>
+    <div class="row">
+        <div class="column">
+            <button (click)="navigateToPreviousDirectory()">..</button>
 
-    <div class="list-item-container" *ngFor="let subdirectory of subDirectories$ | async">
-        <app-directory-list-item [directory]="subdirectory"></app-directory-list-item>
-    </div>
+            <div class="list-item-container" *ngFor="let subdirectory of subDirectories$ | async">
+                <app-directory-list-item [directory]="subdirectory"></app-directory-list-item>
+            </div>
 
-    <div class="list-item-container" *ngFor="let file of files$ | async">
-        <app-file-list-item [file]="file"></app-file-list-item>
+            <div class="list-item-container" *ngFor="let file of files$ | async">
+                <app-file-list-item [file]="file"></app-file-list-item>
+            </div>
+        </div>
+
+        <div id="file-details-card-container">
+            <app-file-details-card [file]="selectedFile$ | async"></app-file-details-card>
+        </div>
     </div>
 </div>

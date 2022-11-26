@@ -14,6 +14,10 @@
     margin-top: 12px;
 }
 
+#file-details-card-container {
+    margin: auto 0 auto 35px;
+}
+
 @include apply-to-tablet-and-larger {
     #main-content-container {
         min-width: 350px;

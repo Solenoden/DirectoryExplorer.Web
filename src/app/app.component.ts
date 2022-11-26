@@ -12,6 +12,7 @@ import { DirectoryService } from './services/directory.service'
 export class AppComponent implements OnInit {
     public subDirectories$: Observable<Directory[]> = this.directoryService.subDirectories$
     public files$: Observable<File[]> = this.directoryService.files$
+    public selectedFile$: Observable<File> = this.directoryService.selectedFile$.asObservable()
 
     constructor(
         private directoryService: DirectoryService

@@ -35,3 +35,15 @@ body {
 .w-100 {
     width: 100%
 }
+
+.list-item {
+    padding: 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        opacity: 0.8;
+        background-color: #f3f3f3;
+    }
+}

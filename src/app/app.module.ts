@@ -7,12 +7,14 @@ import { MatIconModule } from '@angular/material/icon'
 import { HttpClientModule } from '@angular/common/http'
 import { DirectoryListItemComponent } from './components/directory-list-item/directory-list-item.component'
 import { FileListItemComponent } from './components/file-list-item/file-list-item.component'
+import { FileDetailsCardComponent } from './components/file-details-card/file-details-card.component'
 
 @NgModule({
     declarations: [
         AppComponent,
         DirectoryListItemComponent,
-        FileListItemComponent
+        FileListItemComponent,
+        FileDetailsCardComponent
     ],
     imports: [
         BrowserModule,

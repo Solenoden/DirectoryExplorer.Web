@@ -8,8 +8,9 @@ import { map } from 'rxjs/operators'
 @Injectable({ providedIn: 'root' })
 export class DirectoryService {
     public rootDirectory$: BehaviorSubject<Directory> = new BehaviorSubject<Directory>(null)
-    public files$: Observable<File[]> = this.rootDirectory$.pipe(map(x => x?.files))
     public subDirectories$: Observable<Directory[]> = this.rootDirectory$.pipe(map(x => x?.directories))
+    public files$: Observable<File[]> = this.rootDirectory$.pipe(map(x => x?.files))
+    public selectedFile$: BehaviorSubject<File> = new BehaviorSubject<File>(null)
 
     private previousRootDirectory: Directory
     private initialRootDirectory: Directory
@@ -45,5 +46,9 @@ export class DirectoryService {
             this.previousRootDirectory = this.rootDirectory$.value
             this.rootDirectory$.next(tempPreviousRootDirectory)
         }
+    }
+
+    public selectFile(file: File): void {
+        this.selectedFile$.next(file)
     }
 }

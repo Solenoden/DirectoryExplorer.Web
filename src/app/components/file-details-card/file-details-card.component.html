@@ -1,0 +1,25 @@
+<div class="card column">
+    <ng-container *ngIf="file">
+        <h3>{{ file.name }}</h3>
+        <div class="row field">
+            <span class="field-name">Full path:</span>
+            <span class="field-value">{{ file.fullPath }}</span>
+        </div>
+        <div class="row field">
+            <span class="field-name">Extension:</span>
+            <span class="field-value">{{ file.extension }}</span>
+        </div>
+        <div class="row field">
+            <span class="field-name">Size:</span>
+            <span class="field-value">{{ file.sizeInKilobytes }} KB</span>
+        </div>
+        <div class="row field">
+            <span class="field-name">Created at:</span>
+            <span class="field-value">{{ creationDate }}</span>
+        </div>
+        <div class="row field">
+            <span class="field-name">Modified at:</span>
+            <span class="field-value">{{ modifiedDate }}</span>
+        </div>
+    </ng-container>
+</div>
