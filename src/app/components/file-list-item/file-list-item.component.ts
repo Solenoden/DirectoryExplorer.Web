@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { File } from '../../models/file.model'
 import { DirectoryService } from '../../services/directory.service'
+import { ScreenSize, UiService } from '../../services/ui.service'
 
 @Component({
     selector: 'app-file-list-item',
@@ -10,7 +11,10 @@ import { DirectoryService } from '../../services/directory.service'
 export class FileListItemComponent {
     @Input() file: File
 
-    constructor(private directoryService: DirectoryService) {
+    constructor(
+        private directoryService: DirectoryService,
+        private uiService: UiService
+    ) {
     }
 
     public selectFile(): void {
@@ -18,6 +22,8 @@ export class FileListItemComponent {
     }
 
     public unselectFile(): void {
-        this.directoryService.selectFile(null)
+        if (this.uiService.screenSize$.value > ScreenSize.Tablet) {
+            this.directoryService.selectFile(null)
+        }
     }
 }

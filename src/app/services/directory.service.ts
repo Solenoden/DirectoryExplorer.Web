@@ -4,6 +4,7 @@ import { HttpService } from './http.service'
 import { Directory } from '../models/directory.model'
 import { File } from '../models/file.model'
 import { map } from 'rxjs/operators'
+import { ScreenSize, UiService } from './ui.service'
 
 @Injectable({ providedIn: 'root' })
 export class DirectoryService {
@@ -16,7 +17,8 @@ export class DirectoryService {
     private initialRootDirectory: Directory
 
     constructor(
-        private httpService: HttpService
+        private httpService: HttpService,
+        private uiService: UiService
     ) {}
 
     public populateDirectories(): void {
@@ -45,6 +47,10 @@ export class DirectoryService {
             const tempPreviousRootDirectory = { ...this.previousRootDirectory }
             this.previousRootDirectory = this.rootDirectory$.value
             this.rootDirectory$.next(tempPreviousRootDirectory)
+
+            if (this.uiService.screenSize$.value <= ScreenSize.Tablet) {
+                this.selectFile(null)
+            }
         }
     }
 

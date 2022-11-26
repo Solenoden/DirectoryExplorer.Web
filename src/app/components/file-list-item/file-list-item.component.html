@@ -1,4 +1,4 @@
-<div class="row list-item" (mouseenter)="selectFile()" (mouseleave)="unselectFile()">
+<div class="row list-item" (click)="selectFile()" (mouseenter)="selectFile()" (mouseleave)="unselectFile()">
     <mat-icon aria-hidden="false" aria-label="File">insert_drive_file</mat-icon>
     <span>{{ file?.name }}</span>
 </div>

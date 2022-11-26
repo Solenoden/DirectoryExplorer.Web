@@ -1,14 +1,29 @@
+@import '../../theme/mixins/apply-to-desktop-and-larger.mixin';
+
 .card {
     background-color: #f3f3f3;
     padding: 25px;
-    min-width: 360px;
-    min-height: 250px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 285px;
 }
 
 .field-name {
     margin-right: 5px;
 }
 
+.field-value {
+    inline-size: 150px;
+    overflow-wrap: anywhere;
+}
+
 .field {
     margin-bottom: 5px;
+}
+
+@include apply-to-desktop-and-larger() {
+    .card {
+        min-width: 350px;
+        max-width: 350px;
+    }
 }
